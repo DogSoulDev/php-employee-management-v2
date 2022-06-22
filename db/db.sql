@@ -33,7 +33,7 @@ FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );
 
 -- Insert of data
-INSERT INTO users (name, password, email)
+INSERT INTO admins (name, password, email)
 VALUES
 ("admin", "123456", "admin@assemblerschool.com");
 
