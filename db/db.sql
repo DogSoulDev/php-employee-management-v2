@@ -4,8 +4,8 @@ CREATE DATABASE IF NOT EXISTS employee_management_v2;
 USE employee_management_v2;
 
 -- Creation of the tables
-CREATE TABLE users(
-user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE admins(
+admin_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(50) NOT NULL,
 password varChar(50) NOT NULL,
 email varChar(50) NOT NULL
