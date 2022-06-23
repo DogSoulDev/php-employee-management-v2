@@ -1,9 +1,11 @@
 import gridConfig from "./gridConfig.js"
 
 const mainPath = previousFolder(location.pathname)
+//TODO change employeeController functionality into a class
 const employeeControllerUrl = `${mainPath}/library/employeeController.php`
 const employeeUrl = `${mainPath}/employee.php`
-const sessionHelperUrl = `${mainPath}/library/sessionHelper.php`
+//TODO review session logout
+// const sessionHelperUrl = `${mainPath}/library/sessionHelper.php`
 
 function previousFolder(path) {
     return path.substring(0, path.lastIndexOf('/'))

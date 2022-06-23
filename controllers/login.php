@@ -1,10 +1,10 @@
 <?php
 
-class ContentController extends Controller{
+class Login extends Controller{
 
     function __construct()
     {
         parent::__construct();
-        $this->view->render();
+        $this->view->render('main/index');
     }
 }
