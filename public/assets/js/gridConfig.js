@@ -1,5 +1,5 @@
 const gridConfig = [{
-    name: "id",
+    name: "employee_id",
     type: "number",
     visible: false,
     editing: true,

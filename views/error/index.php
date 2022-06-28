@@ -11,7 +11,7 @@
 
 <body>
     <h1>OH NO NOT THE 404, no just an error page !!!!!!</h1>
-    <?
+    <?php
     if (isset($e)) {
         print_r('Error connecting: ' . $e->getMessage());
     }

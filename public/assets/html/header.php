@@ -10,17 +10,17 @@
 
 <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <img class="navbar-logo"src="./../assets/img/assembler-logo.png" alt="Assembler Logo">
+            <img class="navbar-logo" src="<?= BASE_URL ?>/public/assets/img/assembler-logo.png" alt="Assembler Logo">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?php print($dashboardStatus);?>" id="navbarDashboard" aria-current="page" href="./dashboard.php">Dashboard</a>
+                        <a class="nav-link <?php print($dashboardStatus);?>" id="navbarDashboard" aria-current="page" href="">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php print($employeeStatus);?>" href="./employee.php?action=add">Employee</a>
+                        <a class="nav-link <?php print($employeeStatus);?>" href="">Employee</a>
                     </li>
                 </ul>
-                <a href="./library/loginController.php" class="d-flex logout-button">
+                <a href="" class="d-flex logout-button">
                     <button class="btn btn-outline-success" id="logout">Logout</button>
                 </a>
             </div>

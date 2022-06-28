@@ -5,7 +5,7 @@ require('./library/employeeManager.php');
 require_once('./library/avatarsApi.php');
 
 if (isset($_GET['id'])) {
-    //TODO get the query call here? how to do this?
+    //TODO get the query call here? how to do this? Are all these methods for our Classes
     $employee = getEmployee($_GET['id'], './../resources/employees.json');
     $select = generateSelect('gender', array('', 'male', 'female'), $employee['gender']);
     $avatar = $employee['avatar'];
@@ -33,7 +33,7 @@ if (isset($_GET['avatar'])){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="module" src="./../assets/js/index.js"></script>
+    <script type="module" src="./../../assets/js/index.js"></script>
     <link rel="stylesheet" href="./../assets/css/main.css">
     <title>Employee</title>
 </head>
@@ -43,12 +43,14 @@ if (isset($_GET['avatar'])){
     <main class= "main__container">
         <section class="employee-container">
             <article class="avatar__container">
+                //TODO review class methods
                 <a href="./employee.php?avatar=get<?php isset($_GET['id']) ? print ("&id={$_GET['id']}") : '';?>">
                     <img class="avatar__image" src="<?php isset($avatar) ? print($avatar) :
                                 print("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/383.gif"); ?>" alt="avatarImage">
                 </a>
             </article>
             <form class="employee-form" action="./library/employeeController.php" method="POST">
+                //TODO review class methods
                 <input hidden type="number" name="id" value="<?php isset($_GET['id']) ? print($employee['id']) : ""; ?>">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -100,6 +102,7 @@ if (isset($_GET['avatar'])){
                         <input required type="number" class="form-control" id="inputPhone" placeholder="Phone number" name="phoneNumber" value="<?php isset($_GET['id']) ? print($employee['phoneNumber']) : ""; ?>">
                     </div>
                 </div>
+                //TODO review class methods
                 <input hidden type="text" name="avatar" value="<?php isset($avatar) ? print($avatar) : ""; ?>">
                 <div class="form-row">
                     <button type="submit" class="btn btn-primary form-submit">Submit</button>

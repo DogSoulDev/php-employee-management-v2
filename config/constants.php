@@ -11,5 +11,11 @@ define("VIEWS", BASE_PATH . '/views/');
 //MODELS
 define("MODELS", BASE_PATH . '/models/');
 
+//ENTITIES
+define("ENTITIES", BASE_PATH . '/models/entities/');
+
 //RESOURCES
 define("RESOURCES", BASE_PATH . '/libs/');
+
+//ASSETS
+define("ASSETS", BASE_PATH . '/public/assets/');

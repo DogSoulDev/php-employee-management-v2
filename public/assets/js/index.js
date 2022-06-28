@@ -1,132 +1,128 @@
 import gridConfig from "./gridConfig.js"
 
-const mainPath = previousFolder(location.pathname)
-//TODO change employeeController functionality into a class
-const employeeControllerUrl = `${mainPath}/library/employeeController.php`
-const employeeUrl = `${mainPath}/employee.php`
+const getAllEmployees = "Main/getEmployeeList";
+const insertEmployee = "Main/insertEmployee";
+const updateEmployee = "Main/updateEmployee";
+// const employeeUrl = `${mainPath}/employee.php`
 //TODO review session logout
 // const sessionHelperUrl = `${mainPath}/library/sessionHelper.php`
 
-function previousFolder(path) {
-    return path.substring(0, path.lastIndexOf('/'))
-}
-
 function showMessage(messageText, type) {
-    $('#alertMessage').addClass(type).removeClass('hide').text(messageText)
+  $('#alertMessage').addClass(type).removeClass('hide').text(messageText)
 }
 
 function hideMessage(type) {
-    setTimeout(function() {
-        $('#alertMessage').removeClass(type).addClass('hide')
-    }, 2000)
+  setTimeout(function () {
+    $('#alertMessage').removeClass(type).addClass('hide')
+  }, 2000)
+}
+
+const getEmployeesList = async () => {
+  const response = await fetch(getAllEmployees);
+  const data = await response.json();
+  return data
+}
+
+const addEmployee = async (item) => {
+  const response = await fetch(insertEmployee);
+  const data = await response.json();
+  return data
+}
+
+const editEmployee = async (employee) => {
+  const response = await fetch(updateEmployee(employee));
+  const data = await response.json();
+  return data
+}
+
+
+class employee {
+  $employee_id;
+  $name;
+  $last_name;
+  $email;
+  $gender_id;
+  $age;
+  $phone_number;
+  $avatar;
+  $position;
 }
 
 async function callGrid() {
-    $("#jsGrid").jsGrid({
-        width: "100%",
-        height: "400px",
+  $("#jsGrid").jsGrid({
+    width: "100%",
+    height: "400px",
+    inserting: true,
+    editing: true,
+    sorting: true,
+    autoload: true,
+    filtering: false,
+    paging: true,
+    pageSize: 10,
+    pageButtonCount: 5,
+    confirmDeleting: true,
+    deleteConfirm: 'Do you really want to delete employee?',
 
-        inserting: true,
-        editing: true,
-        sorting: true,
-        autoload: true,
-        filtering: false,
-        paging: true,
-        pageSize: 10,
-        pageButtonCount: 5,
-        confirmDeleting: true,
-        deleteConfirm: 'Do you really want to delete employee?',
+    fields: gridConfig,
 
-        fields: gridConfig,
+    controller: {
+      loadData: getEmployeesList,
+    },
 
-        controller: {
-            loadData: function(){
-                const d = $.Deferred();
-                $.ajax({
-                    type:'POST',
-                    url: employeeControllerUrl,
-                    dataType: "json",
-                    data: ({
-                        action: 'getAllEmployees',
-                        user: ''
-                    }),
-                }). catch(error => console.error(error))
-                .done(function (data){
-                    d.resolve(Object.values(data))
-                })
-                return d.promise()
-            }
-        },
+    onItemInserting: function (item) {
+      console.log(item.item.name);
+      $data = new employee();
+      $data.$name = item.item.name;
+      addEmployee(item.item);
+    },
 
-        rowClick: function (args) {
-            window.location.assign(`${employeeUrl}?id=${args.item.id}`)
-        },
+    onItemInserted: function () {
+      showMessage('Employee Inserted', 'alert-success')
+      hideMessage('alert-success')
+    },
 
-        onItemInserting: async function (args) {
-            args.item.id = ''
-            args.item.avatar=''
-            $.ajax({
-                type: 'POST',
-                url: employeeControllerUrl,
-                dataType: "json",
-                data: ({
-                    action:'add',
-                    user:args.item
-                }),
-            })
-        },
+    onItemUpdating: function (item) {
+      editEmployee(item.employee_id);
+    },
+    // rowClick: function (args) {
+    //     window.location.assign(`${employeeUrl}?id=${args.item.id}`)
+    // },
 
-        onItemInserted: function () {
-            showMessage('Employee Inserted', 'alert-success')
-            hideMessage('alert-success')
-        },
 
-        onItemUpdating: function (args) {
-            $.ajax({
-                type: 'POST',
-                url: employeeControllerUrl,
-                dataType: "json",
-                data: ({
-                    action: 'update',
-                    user: args.item
-                }),
-            })
-         },
+    // onItemUpdated: function () {
+    //     showMessage('Employee Updated', 'alert-success')
+    //     hideMessage('alert-success')
+    // },
 
-        onItemUpdated: function () {
-            showMessage('Employee Updated', 'alert-success')
-            hideMessage('alert-success')
-        },
+    // onItemDeleting: async function(args){
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: employeeControllerUrl,
+    //         dataType: "json",
+    //         data: ({
+    //             action: 'delete',
+    //             user: args.item
+    //         }),
+    //     })
+    // },
 
-        onItemDeleting: async function(args){
-            $.ajax({
-                type: 'POST',
-                url: employeeControllerUrl,
-                dataType: "json",
-                data: ({
-                    action: 'delete',
-                    user: args.item
-                }),
-            })
-        },
-
-        onItemDeleted: function () {
-            showMessage('Employee Deleted', 'alert-success')
-            hideMessage('alert-success')
-        }
-    });
+    // onItemDeleted: function () {
+    //     showMessage('Employee Deleted', 'alert-success')
+    //     hideMessage('alert-success')
+    // }
+  });
 }
 
-callGrid()
+callGrid();
 
-setInterval(() => {
-    $.ajax({
-        type: 'POST',
-        url: `${sessionHelperUrl}`,
-        success: function (data) {
-            if (data === "logout"){
-                location.assign("./../index.php")
-            }
-        }
-    })
-}, 10000)
+// setInterval(() => {
+//   $.ajax({
+//     type: 'POST',
+//     url: `${sessionHelperUrl}`,
+//     success: function (data) {
+//       if (data === "logout") {
+//         location.assign("./../index.php")
+//       }
+//     }
+//   })
+// }, 10000)

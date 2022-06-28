@@ -1,13 +1,14 @@
 <?php
 
-class View{
+class View
+{
 
-    function __construct()
-    {
-      
-    }
+  function __construct()
+  {
+  }
 
-    function render($fileName){
-      require 'views/' . $fileName . '.php';
-    }
+  function render($fileName)
+  {
+    require VIEWS . $fileName . '.php';
+  }
 }
