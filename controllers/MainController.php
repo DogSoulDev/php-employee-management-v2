@@ -30,21 +30,20 @@ class MainController extends Controller
     }
 
     function insertEmployee($data){
-        $employee = new EmployeeModel();
-        // $employee->employee_id = $data['employee_id'];
-        $employee->name = $data['name'];
-        $employee->last_name = $data['last_name'];
-        $employee->email = $data['email'];
-        $employee->gender_id = $data['gender_id'];
-        $employee->age = $data['age'];
-        $employee->phone_number = $data['phone_number'];
-        $employee->avatar = $data['avatar'];
-        $employee->position = $data['position'];
-        $this->model->insertEmployee($employee);
+        // $employee = new EmployeeModel();
+        // // $employee->employee_id = $data['employee_id'];
+        // print_r($data);
+        // $employee->name = $data['name'];
+        // $employee->last_name = $data['last_name'];
+        // $employee->email = $data['email'];
+        // $employee->gender_id = $data['gender_id'];
+        // $employee->age = $data['age'];
+        // $employee->phone_number = $data['phone_number'];
+        // $employee->avatar = $data['avatar'];
+        // $employee->position = $data['position'];
+        // $this->model->insertEmployee($employee);
+        print_r($data);
     }
 
-    function render()
-    {
-        $this->view->render('main/index');
-    }
+  
 }

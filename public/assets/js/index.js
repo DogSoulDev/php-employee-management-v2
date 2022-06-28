@@ -1,9 +1,6 @@
-import gridConfig from "./gridConfig.js"
+import gridConfig from "./gridConfig.js";
 
 const getAllEmployees = "Main/getEmployeeList";
-const insertEmployee = "Main/insertEmployee";
-const updateEmployee = "Main/updateEmployee";
-// const employeeUrl = `${mainPath}/employee.php`
 //TODO review session logout
 // const sessionHelperUrl = `${mainPath}/library/sessionHelper.php`
 
@@ -23,35 +20,43 @@ const getEmployeesList = async () => {
   return data
 }
 
-const addEmployee = async (item) => {
-  const response = await fetch(insertEmployee);
-  const data = await response.json();
-  return data
+const addEmployee = async (employee) => {
+  console.log(employee);
+  const response = await fetch(`Main/insertEmployee/${employee}`, {
+    method: 'POST',
+    // body: JSON.stringify({
+    //   employee_id: employee.employee_id,
+    //   name: employee.name,
+    //   last_name: employee.last_name,
+    //   email: employee.email,
+    //   gender_id: employee.gender_id,
+    //   age: employee.age,
+    //   phone_number: employee.street,
+    //   avatar: employee.avatar,
+    //   position: employee.position,
+    // }),
+  });
+  const data = await response.text();
+  console.log(data);
+  // return data;
 }
 
-const editEmployee = async (employee) => {
-  const response = await fetch(updateEmployee(employee));
-  const data = await response.json();
-  return data
-}
+// const editEmployee = async (employee) => {
+//   const response = await fetch(`Main/insertEmployee/${data.item}`);
+//   const data = await response.json();
+//   return data
+// }
 
-
-class employee {
-  $employee_id;
-  $name;
-  $last_name;
-  $email;
-  $gender_id;
-  $age;
-  $phone_number;
-  $avatar;
-  $position;
+const deleteEmployee = async (employee_id) => {
+  const response = await fetch(`Main/insertEmployee/${employee_id}`);
+  // const data = await response.json();
+  // return data;
 }
 
 async function callGrid() {
   $("#jsGrid").jsGrid({
     width: "100%",
-    height: "400px",
+    height: "600px",
     inserting: true,
     editing: true,
     sorting: true,
@@ -69,11 +74,9 @@ async function callGrid() {
       loadData: getEmployeesList,
     },
 
-    onItemInserting: function (item) {
-      console.log(item.item.name);
-      $data = new employee();
-      $data.$name = item.item.name;
-      addEmployee(item.item);
+    onItemInserting: function (data) {
+      console.log(data);
+      // addEmployee(data.item)
     },
 
     onItemInserted: function () {
@@ -93,6 +96,11 @@ async function callGrid() {
     //     showMessage('Employee Updated', 'alert-success')
     //     hideMessage('alert-success')
     // },
+
+    onItemDeleting: function (data) {
+      console.log(data.item);
+      deleteEmployee(data.item.employee_id);
+    }
 
     // onItemDeleting: async function(args){
     //     $.ajax({

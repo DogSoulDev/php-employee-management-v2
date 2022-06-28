@@ -26,9 +26,6 @@
         Employee deleted successfully!
     </div> -->
 
-  <?php
-  require ASSETS . 'html/footer.php';
-  ?>
 </body>
 
 </html>
